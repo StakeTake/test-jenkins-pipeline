@@ -1,19 +1,22 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                echo 'Building...'
+                // Клонируем репозиторий
+                checkout scm
             }
         }
-        stage('Test') {
+        stage('Install Dependencies') {
             steps {
-                echo 'Testing...'
+                // Устанавливаем зависимости
+                sh 'pip3 install -r requirements.txt'
             }
         }
-        stage('Deploy') {
+        stage('Run Tests') {
             steps {
-                echo 'Deploying...'
+                // Запускаем тесты
+                sh 'pytest'
             }
         }
     }
